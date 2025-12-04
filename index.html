@@ -30,7 +30,7 @@
             right: 0;
             bottom: 0;
             background-image: 
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.7"/><circle cx="40" cy="30" r="1" fill="white" opacity="0.7"/><circle cx="70" cy="20" r="1" fill="white" opacity="0.7"/><circle cx="90" cy="60" r="1" fill="white" opacity="0.7"/><circle cx="30" cy="80" r="1" fill="white" opacity="0.7"/><circle cx="60" cy="90" r="1" fill="white" opacity="0.7"/></svg>');
+                url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.7"/><circle cx="40" cy="30" r="1" fill="white" opacity="0.7"/><circle cx="70" cy="20" r="1" fill="white" opacity="0.7"/><circle cx="90" cy="60" r="1" fill="white" opacity="0.7"/><circle cx="30" cy="80" r="1" fill="white" opacity="0.7"/><circle cx="60" cy="90" r="1" fill="white" opacity="0.7"/></svg>');
             z-index: -1;
             animation: twinkle 3s infinite alternate;
         }
@@ -108,7 +108,7 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
-            background-image: url('https://lh3.googleusercontent.com/d/1rPhQrnrqOvo4n_QFfcA7cat72YKp4xxO');
+            background-image: url('Pages Images/texture.png');
             background-size: cover;
             background-blend-mode: multiply;
             background-color: rgba(255, 253, 248, 0.95);
@@ -154,6 +154,7 @@
             font-size: 1.5rem;
             color: #8b0000;
             margin-top: 15px;
+            margin-bottom: 25px; /* ✅ More space below */
             font-weight: bold;
         }
         .navigation {
@@ -217,7 +218,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 15px;
+            margin-top: 10px; /* ✅ Moved buttons up */
         }
         .snowflake {
             position: fixed;
@@ -265,29 +266,82 @@
             text-align: center;
             font-family: 'Kalam', cursive;
             color: #ffeb3b;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin: 8px 0 12px 0; /* ✅ Closer to book box */
+            font-size: 0.9rem;
             text-shadow: 1px 1px 0px #8b0000;
-            padding: 10px;
+            padding: 6px;
             width: 100%;
+            line-height: 1.3;
+            white-space: nowrap; /* ✅ One line */
+            overflow: hidden;
         }
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .book-title { font-size: 2.2rem; }
             .page-text { font-size: 1.2rem; }
-            .page { flex-direction: column; min-height: auto; gap: 15px; }
-            .page-image, .page-text-container { width: 100%; height: auto; }
-            .page-image { height: 40vh; min-height: 300px; object-fit: cover; }
-            .page-text-container { min-height: 40vh; padding: 20px; }
-            .copyright { font-size: 1rem; margin-top: 15px; }
+            .page { 
+                flex-direction: column; 
+                min-height: auto; 
+                gap: 15px; 
+            }
+            .page-image, .page-text-container { 
+                width: 100%; 
+                height: auto; 
+            }
+            .page-image { 
+                height: 40vh; 
+                min-height: 300px;
+                object-fit: cover;
+                order: 1 !important;
+            }
+            .page-text-container { 
+                min-height: 35vh; 
+                padding: 20px;
+                order: 2 !important;
+            }
+            .copyright {
+                font-size: 0.85rem;
+                margin: 6px 0 10px 0;
+            }
+            .navigation button {
+                padding: 10px 20px;
+                font-size: 1rem;
+                border-radius: 30px;
+            }
+            .audio-controls .audio-btn,
+            .audio-controls .download-btn {
+                padding: 10px 15px;
+                font-size: 1rem;
+                width: 120px;
+            }
+            .page-number {
+                margin-bottom: 20px; /* Mobile spacing */
+            }
         }
         @media (max-width: 480px) {
             .book-title { font-size: 1.8rem; padding: 15px; }
             .page-text { font-size: 1rem; }
-            button { padding: 10px 20px; font-size: 1.2rem; }
-            .book-container { border-width: 10px; }
-            .page-image { height: 35vh; min-height: 250px; }
-            .copyright { font-size: 0.9rem; padding: 8px; }
+            .page-image {
+                height: 35vh;
+                min-height: 250px;
+            }
+            .copyright {
+                font-size: 0.8rem;
+                padding: 5px;
+            }
+            .navigation button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .audio-controls .audio-btn,
+            .audio-controls .download-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                width: 110px;
+            }
+            .page-number {
+                margin-bottom: 18px;
+            }
         }
     </style>
 </head>
@@ -296,7 +350,7 @@
     <div class="book-container">
         <div class="book-content">
             <div id="page-0" class="page page-odd">
-                <img src="https://lh3.googleusercontent.com/d/1XGw2M1HPQIOOKtUWaidraEiVQ1TE9SWJ" alt="Book Cover" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/Cover.png" alt="Book Cover" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         <h2 style="text-align: center; color: #8b0000; font-family: 'Mountains of Christmas', cursive; margin-bottom: 20px; font-size: 2.5rem;">The Quietest Night Before Christmas</h2>
@@ -306,7 +360,7 @@
                 </div>
             </div>
             <div id="page-1" class="page page-odd hidden">
-                <img src="https://lh3.googleusercontent.com/d/1CYwTOyIcj_JVwm1hugccUhIEskLrtOio" alt="Page 1" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/1. Page.png" alt="Page 1" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         The night before Christmas is the quietest night of the whole year.
@@ -317,7 +371,7 @@
                 </div>
             </div>
             <div id="page-2" class="page page-even hidden">
-                <img src="https://lh3.googleusercontent.com/d/1Q-v0xtTkOpEorsV1xl4bV2BnuF5zGOKS" alt="Page 2" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/2. page.png" alt="Page 2" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         It was time for the biggest journey of all. Santa took one last look at his list,
@@ -328,7 +382,7 @@
                 </div>
             </div>
             <div id="page-3" class="page page-odd hidden">
-                <img src="https://lh3.googleusercontent.com/d/1T6pHV0oTZxsg_l_VouZVpDLHD6EKkUxb" alt="Page 3" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/3. Page.png" alt="Page 3" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Outside, the stars were sparkling like spilled sugar. Santa headed to the stable
@@ -339,7 +393,7 @@
                 </div>
             </div>
             <div id="page-4" class="page page-even hidden">
-                <img src="https://lh3.googleusercontent.com/d/1Op7GzlIna83s5NLqCgyH41xO84tVz5Gc" alt="Page 4" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/4. Page.png" alt="Page 4" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         The sleigh was packed perfectly, wrapped up tight with ribbons of
@@ -350,7 +404,7 @@
                 </div>
             </div>
             <div id="page-5" class="page page-odd hidden">
-                <img src="https://lh3.googleusercontent.com/d/1hZDGts0OQksBH4Vav9T3_WdZ7nXCePy9" alt="Page 5" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/5.Page.png" alt="Page 5" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Down below, the world was curled up tight under a blanket of white. Santa
@@ -361,7 +415,7 @@
                 </div>
             </div>
             <div id="page-6" class="page page-even hidden">
-                <img src="https://lh3.googleusercontent.com/d/1W0b-N4Sp6_64s6Va4u35go6LN9D1HalX" alt="Page 6" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/6. Page.png" alt="Page 6" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Soon, they arrived at a cozy little house. Santa tiptoed inside, his boots making
@@ -372,7 +426,7 @@
                 </div>
             </div>
             <div id="page-7" class="page page-odd hidden">
-                <img src="https://lh3.googleusercontent.com/d/1GKmfaiGqVU8yWpaMKjJdA62UBzz9_mZe" alt="Page 7" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/7. Page.png" alt="Page 7" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Back in the starry night, Santa stretched his arms and sighed happily. The sleigh
@@ -383,7 +437,7 @@
                 </div>
             </div>
             <div id="page-8" class="page page-even hidden">
-                <img src="https://lh3.googleusercontent.com/d/1WOWxI5Pb8ncFqmlmBqtMIMt3jLYsBsu3" alt="Page 8" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/8. Page.png" alt="Page 8" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         "Just a little further, Lumi," Santa whispered to his loyal lead reindeer.
@@ -394,7 +448,7 @@
                 </div>
             </div>
             <div id="page-9" class="page page-odd hidden">
-                <img src="https://lh3.googleusercontent.com/d/1GIikja9EmyueaCTDCiZrMmno2an_qLkG" alt="Page 9" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/9. Page.png" alt="Page 9" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Finally, the familiar lights of the North Pole shone ahead! They landed softly,
@@ -405,7 +459,7 @@
                 </div>
             </div>
             <div id="page-10" class="page page-even hidden">
-                <img src="https://lh3.googleusercontent.com/d/1Sw_vby-RIpWwn4DZ6SXJiJiymG3LWYii" alt="Page 10" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
+                <img src="Pages Images/10. Page.png" alt="Page 10" class="page-image image-loading" onload="this.classList.remove('image-loading')" onerror="this.className='page-image error'">
                 <div class="page-text-container">
                     <div class="page-text">
                         Santa Claus yawned a great big, rumble-in-the-tummy yawn. The lists
@@ -435,6 +489,7 @@
             <button id="next-btn">Next</button>
         </div>
     </div>
+    <div class="copyright">Copyright © 2025 2flyerdesigns — All rights reserved.</div>
     <div class="audio-controls">
         <button class="audio-btn" id="play-btn">Play Story</button>
         <button class="audio-btn" id="pause-btn">Pause</button>
@@ -442,9 +497,6 @@
     </div>
     <div class="audio-status" id="audio-status">Audio: Ready to play</div>
     <div class="page-indicator" id="page-indicator">Page 1 of 12</div>
-    <div class="copyright">
-        Copyright © 2025 2flyerdesigns<br>All rights reserved.
-    </div>
     <script>
         let currentPage = 0;
         const totalPages = 12;
@@ -455,54 +507,40 @@
         const playBtn = document.getElementById('play-btn');
         const pauseBtn = document.getElementById('pause-btn');
         const audioStatus = document.getElementById('audio-status');
-
         let isPlaying = false;
         let autoContinue = false;
         let currentAudio = null;
-
         // Background music
         const bgMusic = new Audio('background-music.mp3');
         bgMusic.loop = true;
-        bgMusic.volume = 0.15;
-
+        bgMusic.volume = 0.25;
         // Start background music on first user interaction
         document.body.addEventListener('click', () => {
             bgMusic.play().catch(e => {});
         }, { once: true });
-
         function playPageAudio(pageNum) {
             if (pageNum < 0 || pageNum >= totalPages) return;
-
-            // Stop current narration
             if (currentAudio) currentAudio.pause();
-
-            // Load and play narration
             currentAudio = new Audio(`audio/page-${pageNum}.mp3`);
             isPlaying = true;
             autoContinue = true;
             playBtn.textContent = "Playing...";
             audioStatus.textContent = `Playing page ${pageNum + 1}`;
-
             currentAudio.play().catch(e => {
                 audioStatus.textContent = "Audio failed to load";
                 isPlaying = false;
                 playBtn.textContent = "Play Story";
                 bgMusic.pause();
             });
-
             currentAudio.onended = () => {
                 isPlaying = false;
                 playBtn.textContent = "Play Story";
-
                 if (pageNum === totalPages - 1) {
-                    // End of story: go back to cover, stop all audio
                     bgMusic.pause();
-                    currentAudio = null;
                     currentPage = 0;
                     showPage(0);
                     audioStatus.textContent = "Story finished. Back to start.";
                 } else if (autoContinue) {
-                    // Auto-advance to next page
                     setTimeout(() => {
                         currentPage++;
                         showPage(currentPage);
@@ -511,27 +549,22 @@
                 }
             };
         }
-
-        // Play button: resume both narration and background music
         playBtn.addEventListener('click', () => {
             if (!isPlaying) {
-                bgMusic.play().catch(e => {}); // 👈 Resume background music
+                bgMusic.play().catch(e => {});
                 playPageAudio(currentPage);
             }
         });
-
-        // Pause button: stop both
         pauseBtn.addEventListener('click', () => {
             if (isPlaying) {
                 currentAudio.pause();
-                bgMusic.pause(); // 👈 Stop background music
+                bgMusic.pause();
                 isPlaying = false;
                 autoContinue = false;
                 playBtn.textContent = "Play Story";
                 audioStatus.textContent = "Audio: Paused";
             }
         });
-
         function resetAudio() {
             autoContinue = false;
             if (isPlaying) {
@@ -541,7 +574,6 @@
                 playBtn.textContent = "Play Story";
             }
         }
-
         function showPage(pageNumber) {
             document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
             document.getElementById(`page-${pageNumber}`).classList.remove('hidden');
@@ -549,7 +581,6 @@
             nextBtn.disabled = pageNumber === totalPages - 1;
             pageIndicator.textContent = `Page ${pageNumber + 1} of ${totalPages}`;
         }
-
         prevBtn.addEventListener('click', () => {
             if (currentPage > 0) {
                 currentPage--;
@@ -557,7 +588,6 @@
                 resetAudio();
             }
         });
-
         nextBtn.addEventListener('click', () => {
             if (currentPage < totalPages - 1) {
                 currentPage++;
@@ -565,8 +595,6 @@
                 resetAudio();
             }
         });
-
-        // PDF function (unchanged)
         function generatePDF() {
             const printContent = `
                 <!DOCTYPE html>
@@ -797,11 +825,11 @@
                     <div class="cover">
                         <h1 class="cover-title">The Quietest Night Before Christmas</h1>
                         <p class="cover-subtitle">A magical Christmas story for children</p>
-                        <img src="https://lh3.googleusercontent.com/d/1XGw2M1HPQIOOKtUWaidraEiVQ1TE9SWJ" class="cover-image" alt="Christmas Book Cover">
+                        <img src="Pages Images/Cover.png" class="cover-image" alt="Christmas Book Cover">
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1CYwTOyIcj_JVwm1hugccUhIEskLrtOio" class="story-image" alt="Santa's Workshop">
+                        <img src="Pages Images/1. Page.png" class="story-image" alt="Santa's Workshop">
                         <div class="story-text">
                             The night before Christmas is the quietest night of the whole year. High up north, a flurry of snowflakes danced around a very special workshop. Santa Claus adjusted his big belt and yawned a tiny, happy yawn.
                         </div>
@@ -809,7 +837,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1Q-v0xtTkOpEorsV1xl4bV2BnuF5zGOKS" class="story-image" alt="Santa's List">
+                        <img src="Pages Images/2. page.png" class="story-image" alt="Santa's List">
                         <div class="story-text">
                             It was time for the biggest journey of all. Santa took one last look at his list, which was miles and miles long, written on paper as soft as velvet. He whispered, "Let's see... Elara is fast asleep. Good."
                         </div>
@@ -817,7 +845,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1T6pHV0oTZxsg_l_VouZVpDLHD6EKkUxb" class="story-image" alt="Reindeer Stable">
+                        <img src="Pages Images/3. Page.png" class="story-image" alt="Reindeer Stable">
                         <div class="story-text">
                             Outside, the stars were sparkling like spilled sugar. Santa headed to the stable where his team waited, especially gentle Lumi, who had the softest nose of all the reindeer. "Ready for our big flight, my dear?" Santa murmured.
                         </div>
@@ -825,7 +853,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1Op7GzlIna83s5NLqCgyH41xO84tVz5Gc" class="story-image" alt="Santa's Sleigh">
+                        <img src="Pages Images/4. Page.png" class="story-image" alt="Santa's Sleigh">
                         <div class="story-text">
                             The sleigh was packed perfectly, wrapped up tight with ribbons of moonlight. Santa climbed into the driver's seat, pulling the enormous, fuzzy reins. "Up and away, Lumi! Quiet as a shadow, quick as a wish!"
                         </div>
@@ -833,7 +861,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1hZDGts0OQksBH4Vav9T3_WdZ7nXCePy9" class="story-image" alt="Flying Over Towns">
+                        <img src="Pages Images/5.Page.png" class="story-image" alt="Flying Over Towns">
                         <div class="story-text">
                             Down below, the world was curled up tight under a blanket of white. Santa guided the sleigh carefully over silent, sleeping towns and twinkling city lights, ensuring not a single chime of a bell could wake a soul.
                         </div>
@@ -841,7 +869,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1W0b-N4Sp6_64s6Va4u35go6LN9D1HalX" class="story-image" alt="Delivering Gifts">
+                        <img src="Pages Images/6. Page.png" class="story-image" alt="Delivering Gifts">
                         <div class="story-text">
                             Soon, they arrived at a cozy little house. Santa tiptoed inside, his boots making no noise at all, and placed a very special, brightly colored box right beneath the tree for Elara.
                         </div>
@@ -849,7 +877,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1GKmfaiGqVU8yWpaMKjJdA62UBzz9_mZe" class="story-image" alt="Happy Santa">
+                        <img src="Pages Images/7. Page.png" class="story-image" alt="Happy Santa">
                         <div class="story-text">
                             Back in the starry night, Santa stretched his arms and sighed happily. The sleigh felt much lighter now! He looked down at the peaceful world and smiled. Delivering joy felt wonderful, but he was starting to get sleepy too.
                         </div>
@@ -857,7 +885,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1WOWxI5Pb8ncFqmlmBqtMIMt3jLYsBsu3" class="story-image" alt="Lumi the Reindeer">
+                        <img src="Pages Images/8. Page.png" class="story-image" alt="Lumi the Reindeer">
                         <div class="story-text">
                             "Just a little further, Lumi," Santa whispered to his loyal lead reindeer. Lumi flicked her soft ears and kept pulling steadily. The moon shone on her antlers, lighting the way home across the quiet, deep blue sky.
                         </div>
@@ -865,7 +893,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1GIikja9EmyueaCTDCiZrMmno2an_qLkG" class="story-image" alt="North Pole">
+                        <img src="Pages Images/9. Page.png" class="story-image" alt="North Pole">
                         <div class="story-text">
                             Finally, the familiar lights of the North Pole shone ahead! They landed softly, like a feather drifting onto the snow. Santa led Lumi back into the warm stable, gave her a big hug, and tucked her in with a blanket of hay.
                         </div>
@@ -873,7 +901,7 @@
                     </div>
                     <div class="page-break"></div>
                     <div class="story-page">
-                        <img src="https://lh3.googleusercontent.com/d/1Sw_vby-RIpWwn4DZ6SXJiJiymG3LWYii" class="story-image" alt="Santa Sleeping">
+                        <img src="Pages Images/10. Page.png" class="story-image" alt="Santa Sleeping">
                         <div class="story-text">
                             Santa Claus yawned a great big, rumble-in-the-tummy yawn. The lists were checked, the gifts were delivered, and the magic was done. He snuggled into his own bed, whispering, "Merry Christmas to all, and to all a good night's sleep!"
                         </div>
@@ -897,11 +925,9 @@
             printWindow.document.close();
         }
         downloadBtn.addEventListener('click', generatePDF);
-
         // Initialize
         showPage(0);
         audioStatus.textContent = "Audio: Ready";
-
         // Snowflakes
         function createSnowflakes() {
             for (let i = 0; i < 50; i++) {
@@ -916,6 +942,24 @@
             }
         }
         createSnowflakes();
+        // Preload images for faster mobile loading
+        const imagePaths = [
+            'Pages Images/Cover.png',
+            'Pages Images/1. Page.png',
+            'Pages Images/2. page.png',
+            'Pages Images/3. Page.png',
+            'Pages Images/4. Page.png',
+            'Pages Images/5.Page.png',
+            'Pages Images/6. Page.png',
+            'Pages Images/7. Page.png',
+            'Pages Images/8. Page.png',
+            'Pages Images/9. Page.png',
+            'Pages Images/10. Page.png'
+        ];
+        imagePaths.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
     </script>
 </body>
 </html>
