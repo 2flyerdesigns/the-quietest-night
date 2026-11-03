@@ -510,46 +510,74 @@
         const audioStatus = document.getElementById('audio-status');
         let isPlaying = false;
         let autoContinue = false;
-        let currentAudio = null;
+
+        // One reusable audio element keeps mobile browsers unlocked after the first tap.
+        const currentAudio = new Audio();
+        currentAudio.preload = 'auto';
+
         // Background music
         const bgMusic = new Audio('background-music.mp3');
         bgMusic.loop = true;
         bgMusic.volume = 0.25;
+
+        // Preload the next page so mobile playback does not stall
+        const preloadedAudio = new Map();
+        function preloadPage(pageNum) {
+            if (pageNum < 0 || pageNum >= totalPages) return;
+            const src = `audio/page-${pageNum}.mp3`;
+            if (preloadedAudio.has(src)) return;
+            const audio = new Audio();
+            audio.preload = 'auto';
+            audio.src = src;
+            preloadedAudio.set(src, audio);
+        }
+
         // Start background music on first user interaction
         document.body.addEventListener('click', () => {
             bgMusic.play().catch(e => {});
         }, { once: true });
+
+        currentAudio.addEventListener('ended', () => {
+            isPlaying = false;
+            playBtn.textContent = "Play Story";
+            if (currentPage === totalPages - 1) {
+                bgMusic.pause();
+                currentPage = 0;
+                showPage(0);
+                audioStatus.textContent = "Story finished. Back to start.";
+            } else if (autoContinue) {
+                setTimeout(() => {
+                    currentPage++;
+                    showPage(currentPage);
+                    playPageAudio(currentPage);
+                }, 500);
+            }
+        });
+
         function playPageAudio(pageNum) {
             if (pageNum < 0 || pageNum >= totalPages) return;
-            if (currentAudio) currentAudio.pause();
-            currentAudio = new Audio(`audio/page-${pageNum}.mp3`);
+            currentAudio.pause();
+            currentAudio.src = `audio/page-${pageNum}.mp3`;
+            currentAudio.load();
             isPlaying = true;
             autoContinue = true;
             playBtn.textContent = "Playing...";
             audioStatus.textContent = `Playing page ${pageNum + 1}`;
-            currentAudio.play().catch(e => {
-                audioStatus.textContent = "Audio failed to load";
-                isPlaying = false;
-                playBtn.textContent = "Play Story";
-                bgMusic.pause();
-            });
-            currentAudio.onended = () => {
-                isPlaying = false;
-                playBtn.textContent = "Play Story";
-                if (pageNum === totalPages - 1) {
+            preloadPage(pageNum + 1);
+            const playPromise = currentAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    audioStatus.textContent = "Tap Play Story again to continue";
+                    isPlaying = false;
+                    playBtn.textContent = "Play Story";
                     bgMusic.pause();
-                    currentPage = 0;
-                    showPage(0);
-                    audioStatus.textContent = "Story finished. Back to start.";
-                } else if (autoContinue) {
-                    setTimeout(() => {
-                        currentPage++;
-                        showPage(currentPage);
-                        playPageAudio(currentPage);
-                    }, 500);
-                }
-            };
+                });
+            }
         }
+
+        preloadPage(0);
+        preloadPage(1);
+
         playBtn.addEventListener('click', () => {
             if (!isPlaying) {
                 bgMusic.play().catch(e => {});
@@ -557,11 +585,11 @@
             }
         });
         pauseBtn.addEventListener('click', () => {
+            autoContinue = false;
             if (isPlaying) {
                 currentAudio.pause();
                 bgMusic.pause();
                 isPlaying = false;
-                autoContinue = false;
                 playBtn.textContent = "Play Story";
                 audioStatus.textContent = "Audio: Paused";
             }
